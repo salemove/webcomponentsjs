@@ -99,6 +99,10 @@
       return e;
     };
     window.Event.prototype = origEvent.prototype;
+    var origMethods = Object.getOwnPropertyNames(origEvent);
+    for (var i = 0; i < origMethods.length; i++) {
+      window.Event[origMethods[i]] = origEvent.origMethods[i];
+    }
   }
 
 })(window.WebComponents);
