@@ -99,9 +99,9 @@
       return e;
     };
     window.Event.prototype = origEvent.prototype;
-    var origMethods = Object.getOwnPropertyNames(origEvent);
-    for (var i = 0; i < origMethods.length; i++) {
-      window.Event[origMethods[i]] = origMethods[i];
+    var origPropertyNames = Object.getOwnPropertyNames(origEvent);
+    for (var i = 0; i < origPropertyNames.length; i++) {
+      window.Event[origPropertyNames[i]] = origEvent[origPropertyNames[i]];
     }
   }
 
