@@ -64,7 +64,7 @@ function forDocumentTree(doc, cb) {
 
 
 function _forDocumentTree(doc, cb, processingDocuments) {
-  doc = window.wrap(doc);
+  doc = window.smWrapElement(doc);
   if (processingDocuments.indexOf(doc) >= 0) {
     return;
   }
