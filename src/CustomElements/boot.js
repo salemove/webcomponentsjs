@@ -47,12 +47,12 @@ var upgradeDocument = scope.upgradeDocument;
 
 // ShadowDOM polyfill wraps elements but some elements like `document`
 // cannot be wrapped so we help the polyfill by wrapping some elements.
-if (!window.wrap) {
+if (!window.smWrapElement) {
   if (window.ShadowDOMPolyfill) {
-    window.wrap = window.ShadowDOMPolyfill.wrapIfNeeded;
+    window.smWrapElement = window.ShadowDOMPolyfill.wrapIfNeeded;
     window.unwrap = window.ShadowDOMPolyfill.unwrapIfNeeded;
   } else {
-    window.wrap = window.unwrap = function(node) {
+    window.smWrapElement = window.unwrap = function(node) {
       return node;
     };
   }
@@ -62,7 +62,7 @@ if (!window.wrap) {
 if (window.HTMLImports) {
   window.HTMLImports.__importsParsingHook = function(elt) {
     if (elt.import) {
-      upgradeDocument(wrap(elt.import));
+      upgradeDocument(smWrapElement(elt.import));
     }
   };
 }
@@ -70,7 +70,7 @@ if (window.HTMLImports) {
 // bootstrap parsing
 function bootstrap() {
   // one more upgrade to catch out of order registrations
-  upgradeDocumentTree(window.wrap(document));
+  upgradeDocumentTree(window.smWrapElement(document));
   // install upgrade hook if HTMLImports are available
   // set internal 'ready' flag, now document.registerElement will trigger
   // synchronous upgrades

@@ -18,11 +18,11 @@
   */
   // convenient global
   if (window.ShadowDOMPolyfill) {
-    window.wrap = ShadowDOMPolyfill.wrapIfNeeded;
+    window.smWrapElement = ShadowDOMPolyfill.wrapIfNeeded;
     window.unwrap = ShadowDOMPolyfill.unwrapIfNeeded;
   } else {
     // so we can call wrap/unwrap without testing for ShadowDOMPolyfill
-    window.wrap = window.unwrap = function(n) {
+    window.smWrapElement = window.unwrap = function(n) {
       return n;
     };
   }

@@ -152,7 +152,7 @@ function _detached(element) {
 // recurse up the tree to check if an element is actually in the main document.
 function inDocument(element) {
   var p = element;
-  var doc = window.wrap(document);
+  var doc = window.smWrapElement(document);
   while (p) {
     if (p == doc) {
       return true;
@@ -242,10 +242,10 @@ function handler(root, mutations) {
   pending upgrades and attached/detached callbacks synchronously.
 */
 function takeRecords(node) {
-  node = window.wrap(node);
+  node = window.smWrapElement(node);
   // If the optional node is not supplied, assume we mean the whole document.
   if (!node) {
-    node = window.wrap(document);
+    node = window.smWrapElement(document);
   }
   // Find the root of the tree, which will be an Document or ShadowRoot.
   while (node.parentNode) {
@@ -277,9 +277,9 @@ function observe(inRoot) {
 
 // upgrade an entire document and observe it for elements changes.
 function upgradeDocument(doc) {
-  doc = window.wrap(doc);
+  doc = window.smWrapElement(doc);
   flags.dom && console.group('upgradeDocument: ', (doc.baseURI).split('/').pop());
-  var isMainDocument = (doc === window.wrap(document));
+  var isMainDocument = (doc === window.smWrapElement(document));
   addedNode(doc, isMainDocument);
   observe(doc);
   flags.dom && console.groupEnd();
