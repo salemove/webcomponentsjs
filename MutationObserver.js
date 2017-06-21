@@ -7,7 +7,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-// @version 0.7.22.4-16379b8
+// @version 0.7.22.5-76e7c5b
 if (typeof WeakMap === "undefined") {
   (function() {
     var defineProperty = Object.defineProperty;

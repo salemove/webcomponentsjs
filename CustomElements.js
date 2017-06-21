@@ -7,7 +7,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-// @version 0.7.22.4-16379b8
+// @version 0.7.22.5-76e7c5b
 if (typeof WeakMap === "undefined") {
   (function() {
     var defineProperty = Object.defineProperty;
@@ -485,7 +485,7 @@ window.CustomElements.addModule(function(scope) {
     _forDocumentTree(doc, cb, []);
   }
   function _forDocumentTree(doc, cb, processingDocuments) {
-    doc = window.wrap(doc);
+    doc = window.smWrapElement(doc);
     if (processingDocuments.indexOf(doc) >= 0) {
       return;
     }
@@ -586,7 +586,7 @@ window.CustomElements.addModule(function(scope) {
   }
   function inDocument(element) {
     var p = element;
-    var doc = window.wrap(document);
+    var doc = window.smWrapElement(document);
     while (p) {
       if (p == doc) {
         return true;
@@ -639,9 +639,9 @@ window.CustomElements.addModule(function(scope) {
     flags.dom && console.groupEnd();
   }
   function takeRecords(node) {
-    node = window.wrap(node);
+    node = window.smWrapElement(node);
     if (!node) {
-      node = window.wrap(document);
+      node = window.smWrapElement(document);
     }
     while (node.parentNode) {
       node = node.parentNode;
@@ -665,9 +665,9 @@ window.CustomElements.addModule(function(scope) {
     inRoot.__observer = observer;
   }
   function upgradeDocument(doc) {
-    doc = window.wrap(doc);
+    doc = window.smWrapElement(doc);
     flags.dom && console.group("upgradeDocument: ", doc.baseURI.split("/").pop());
-    var isMainDocument = doc === window.wrap(document);
+    var isMainDocument = doc === window.smWrapElement(document);
     addedNode(doc, isMainDocument);
     observe(doc);
     flags.dom && console.groupEnd();
@@ -987,12 +987,12 @@ window.CustomElements.addModule(function(scope) {
   }
   var upgradeDocumentTree = scope.upgradeDocumentTree;
   var upgradeDocument = scope.upgradeDocument;
-  if (!window.wrap) {
+  if (!window.smWrapElement) {
     if (window.ShadowDOMPolyfill) {
-      window.wrap = window.ShadowDOMPolyfill.wrapIfNeeded;
+      window.smWrapElement = window.ShadowDOMPolyfill.wrapIfNeeded;
       window.unwrap = window.ShadowDOMPolyfill.unwrapIfNeeded;
     } else {
-      window.wrap = window.unwrap = function(node) {
+      window.smWrapElement = window.unwrap = function(node) {
         return node;
       };
     }
@@ -1000,12 +1000,12 @@ window.CustomElements.addModule(function(scope) {
   if (window.HTMLImports) {
     window.HTMLImports.__importsParsingHook = function(elt) {
       if (elt.import) {
-        upgradeDocument(wrap(elt.import));
+        upgradeDocument(smWrapElement(elt.import));
       }
     };
   }
   function bootstrap() {
-    upgradeDocumentTree(window.wrap(document));
+    upgradeDocumentTree(window.smWrapElement(document));
     window.CustomElements.ready = true;
     var requestAnimationFrame = window.requestAnimationFrame || function(f) {
       setTimeout(f, 16);
