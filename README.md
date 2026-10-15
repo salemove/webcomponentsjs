@@ -1,3 +1,8 @@
+> ⚠️ **DEPRECATED** — this fork is no longer maintained and will be archived.
+> It has no remaining consumers at Glia (see BROW-2727). Use the upstream
+> package [`@webcomponents/webcomponentsjs`](https://www.npmjs.com/package/@webcomponents/webcomponentsjs) ([webcomponents/polyfills](https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs)) instead.
+> It polyfills the v1 specs, so it has no HTML Imports or `document.registerElement`.
+
 webcomponents.js
 ================
 
